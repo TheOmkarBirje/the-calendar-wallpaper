@@ -1,0 +1,151 @@
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: #000000;
+  background-color: transparent;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background: transparent;
+  overflow: hidden;
+}
+
+#root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 440px;
+  padding: 2.5rem;
+  background: transparent;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  color: #000000;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  color: #6b7280;
+  /* Grey */
+  margin-bottom: 2.5rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.input-group {
+  margin-bottom: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: left;
+}
+
+label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #4b5563;
+  /* Dark Grey */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+input {
+  background: transparent;
+  border: 1px solid #d1d5db;
+  /* Light grey border */
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  color: #000000;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+.button-primary {
+  background: transparent;
+  color: #000000;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  padding: 1.1rem;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.button-primary:hover {
+  background: #f3f4f6;
+  /* Very light grey on hover */
+}
+
+.button-primary:active {
+  transform: translateY(1px);
+}
+
+.button-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: #4b5563;
+  /* Grey */
+  border: 1px solid #e5e7eb;
+  /* Light grey border */
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+}
+
+.error-text {
+  color: #000000;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
