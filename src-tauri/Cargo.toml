@@ -1,7 +1,7 @@
 [package]
-name = "tauri-app"
+name = "the-calendar-wallpaper"
 version = "0.1.0"
-description = "A Tauri App"
+description = "Auto-updates Windows desktop background on a schedule."
 authors = ["you"]
 edition = "2021"
 
