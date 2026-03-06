@@ -116,6 +116,11 @@ pub fn run() {
             _ => {}
         })
         .setup(|app| {
+            // Hide the app window on startup
+            if let Some(main_window) = app.get_webview_window("main") {
+                let _ = main_window.hide();
+            }
+
             let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
             let update_i = MenuItem::with_id(app, "update", "Update Now", true, None::<&str>)?;
             let show_i = MenuItem::with_id(app, "show", "Show App", true, None::<&str>)?;
