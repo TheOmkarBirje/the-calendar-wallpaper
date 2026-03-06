@@ -6,7 +6,7 @@ use std::time::Duration;
 use tauri::{
     menu::{Menu, MenuItem},
     tray::TrayIconBuilder,
-    AppHandle, Manager, Runtime,
+    AppHandle, Manager, Runtime, WindowEvent,
 };
 use chrono::{Local, Timelike};
 use directories::ProjectDirs;
@@ -107,6 +107,13 @@ pub fn run() {
     tauri::Builder::default()
         .manage(AppState {
             settings: Mutex::new(initial_settings),
+        })
+        .on_window_event(|window, event| match event {
+            WindowEvent::CloseRequested { api, .. } => {
+                let _ = window.hide();
+                api.prevent_close();
+            }
+            _ => {}
         })
         .setup(|app| {
             let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
