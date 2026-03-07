@@ -31,7 +31,7 @@ pub struct AppState {
 }
 
 fn get_config_path() -> std::path::PathBuf {
-    let proj_dirs = ProjectDirs::from("com", "omkarbirje", "tauri-app").unwrap();
+    let proj_dirs = ProjectDirs::from("com", "", "thecalendarwallpaper").unwrap();
     let config_dir = proj_dirs.config_dir();
     fs::create_dir_all(config_dir).unwrap();
     config_dir.join("settings.json")
