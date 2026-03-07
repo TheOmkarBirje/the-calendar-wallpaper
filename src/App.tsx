@@ -60,9 +60,12 @@ function App() {
   return (
     <main className="container">
       <h1>The Calendar Wallpaper</h1>
-      <p className="description">
-        Paste your wallpaper link and set the time you want the wallpaper to update daily. In case it doesn't update (e.g., if your PC was off or the network was unavailable at the scheduled time), click the <strong>^</strong> arrow in the bottom right Windows System Tray, right-click the app icon, and click <strong>Update Now</strong>.
-      </p>
+      <details className="how-to-accordion">
+        <summary>How to use this?</summary>
+        <p className="description">
+          Paste your wallpaper link and set the time you want the wallpaper to update daily. In case it doesn't update (e.g., if your PC was off or the network was unavailable at the scheduled time), click the <strong>^</strong> arrow in the bottom right Windows System Tray, right-click the app icon, and click <strong>Update Now</strong>, or simply <strong>Left-Click</strong> the icon to update it instantly!
+        </p>
+      </details>
 
       <div className="input-group">
         <label htmlFor="url-input">Wallpaper URL (PNG/JPG)</label>
