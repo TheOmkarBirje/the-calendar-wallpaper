@@ -72,25 +72,27 @@ async fn set_wallpaper(url: String) -> Result<String, String> {
 }
 
 fn start_scheduler<R: Runtime>(app: AppHandle<R>) {
-    thread::spawn(move || {
+    tauri::async_runtime::spawn(async move {
         loop {
-            let state = app.state::<AppState>();
-            let settings = state.settings.lock().unwrap().clone();
+            let (url, update_time) = {
+                let state = app.state::<AppState>();
+                let settings = state.settings.lock().unwrap();
+                (settings.wallpaper_url.clone(), settings.update_time.clone())
+            };
             
-            if !settings.wallpaper_url.is_empty() {
+            if !url.is_empty() {
                 let now = Local::now();
                 let current_time = format!("{:02}:{:02}", now.hour(), now.minute());
                 
-                if current_time == settings.update_time {
+                if current_time == update_time {
                     println!("Scheduled update triggered at {}", current_time);
-                    // Use a blocking call or spawn a task
-                    let url = settings.wallpaper_url.clone();
-                    let _ = tauri::async_runtime::block_on(set_wallpaper(url));
+                    let _ = set_wallpaper(url).await;
                     // Sleep for a minute to avoid multiple triggers
-                    thread::sleep(Duration::from_secs(61));
+                    tokio::time::sleep(Duration::from_secs(61)).await;
+                    continue;
                 }
             }
-            thread::sleep(Duration::from_secs(30));
+            tokio::time::sleep(Duration::from_secs(30)).await;
         }
     });
 }
