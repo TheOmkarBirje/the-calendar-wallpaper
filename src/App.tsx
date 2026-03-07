@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/core";
+import { enable, isEnabled, disable } from '@tauri-apps/plugin-autostart';
 import "./App.css";
 
 interface AppSettings {
@@ -13,6 +14,7 @@ function App() {
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [autoStart, setAutoStart] = useState(false);
 
   useEffect(() => {
     // Load existing settings on mount
@@ -22,6 +24,9 @@ function App() {
         setTime(settings.update_time);
       })
       .catch(console.error);
+
+    // Check autostart status
+    isEnabled().then(setAutoStart).catch(console.error);
   }, []);
 
   const handleUpdate = async () => {
@@ -34,6 +39,13 @@ function App() {
       await invoke("save_settings", {
         settings: { wallpaper_url: url, update_time: time }
       });
+
+      // Handle Autostart toggle
+      if (autoStart) {
+        await enable();
+      } else {
+        await disable();
+      }
 
       // Trigger immediate update
       const msg = await invoke<string>("set_wallpaper", { url });
@@ -71,6 +83,19 @@ function App() {
           onChange={(e) => setTime(e.target.value)}
           pattern="^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
         />
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.5rem', justifyContent: 'flex-start' }}>
+        <input
+          type="checkbox"
+          id="autostart"
+          checked={autoStart}
+          onChange={(e) => setAutoStart(e.target.checked)}
+          style={{ width: 'auto', margin: 0 }}
+        />
+        <label htmlFor="autostart" style={{ margin: 0, textTransform: 'none', letterSpacing: 'normal', cursor: 'pointer', color: '#000000', fontSize: '0.9rem' }}>
+          Start app silently when Windows starts
+        </label>
       </div>
 
       <button
