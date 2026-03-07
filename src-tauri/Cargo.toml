@@ -1,6 +1,6 @@
 [package]
 name = "the-calendar-wallpaper"
-version = "0.1.0"
+version = "0.1.1"
 description = "Auto-updates Windows desktop background on a schedule."
 authors = ["you"]
 edition = "2021"
