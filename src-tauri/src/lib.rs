@@ -1,15 +1,14 @@
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::sync::Mutex;
-use std::thread;
 use std::time::Duration;
 use tauri::{
     menu::{Menu, MenuItem},
-    tray::TrayIconBuilder,
     AppHandle, Manager, Runtime, WindowEvent,
 };
 use chrono::{Local, Timelike};
 use directories::ProjectDirs;
+use tauri::tray::{MouseButton, MouseButtonState, TrayIconBuilder, TrayIconEvent};
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct AppSettings {
@@ -135,6 +134,20 @@ pub fn run() {
                 .icon(app.default_window_icon().unwrap().clone())
                 .menu(&menu)
                 .show_menu_on_left_click(false)
+                .on_tray_icon_event(|tray, event| {
+                    if let TrayIconEvent::Click {
+                        button: MouseButton::Left,
+                        button_state: MouseButtonState::Up,
+                        ..
+                    } = event {
+                        let app = tray.app_handle();
+                        let state = app.state::<AppState>();
+                        let url = state.settings.lock().unwrap().wallpaper_url.clone();
+                        tauri::async_runtime::spawn(async move {
+                            let _ = set_wallpaper(url).await;
+                        });
+                    }
+                })
                 .on_menu_event(move |app, event| match event.id.as_ref() {
                     "quit" => {
                         app.exit(0);
