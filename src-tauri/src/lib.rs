@@ -118,6 +118,13 @@ pub fn run() {
             _ => {}
         })
         .setup(|app| {
+            let args: Vec<String> = std::env::args().collect();
+            if !args.contains(&"--hidden".to_string()) {
+                if let Some(main_window) = app.get_webview_window("main") {
+                    let _ = main_window.show();
+                    let _ = main_window.set_focus();
+                }
+            }
 
             let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
             let update_i = MenuItem::with_id(app, "update", "Update Now", true, None::<&str>)?;

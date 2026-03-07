@@ -15,7 +15,8 @@
         "title": "The Calendar Wallpaper",
         "width": 800,
         "height": 600,
-        "visible": false
+        "visible": false,
+        "skipTaskbar": true
       }
     ],
     "security": {
