@@ -26,6 +26,11 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "publisher": "The Calendar Wallpaper",
+    "shortDescription": "Auto-updates Windows desktop background on a schedule.",
+    "longDescription": "The Calendar Wallpaper is a lightweight utility that runs in the background and automatically updates your Windows OS desktop wallpaper at a scheduled time each day based on a user-provided image URL.",
+    "copyright": "Copyright 2026 The Calendar Wallpaper",
+    "category": "Utility",
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
