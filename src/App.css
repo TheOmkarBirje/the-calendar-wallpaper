@@ -100,8 +100,8 @@ input:focus {
 }
 
 .button-primary {
-  background: transparent;
-  color: #000000;
+  background: #000000;
+  color: #ffffff;
   border: 1px solid #000000;
   border-radius: 8px;
   padding: 1.1rem;
@@ -114,8 +114,7 @@ input:focus {
 }
 
 .button-primary:hover {
-  background: #f3f4f6;
-  /* Very light grey on hover */
+  background: #333333;
 }
 
 .button-primary:active {
